@@ -1,0 +1,68 @@
+<h2>REGVAC - Lista de pacientes</h2>
+<div>
+    <table border="1" width="100%" style="border-collapse: collapse;">
+        <tr>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Ciudad</th>
+            <th>Curp</th>
+            <th>Fecha de Registro</th>
+        </tr>
+
+        <tr *ngFor="let patient of patients">
+            <td>{{ patient.name }}</td>
+            <td>{{ patient.lastname }}</td>
+            <td>{{ patient.hometown }}</td>
+            <td>{{ patient.curp }}</td>
+            <td>{{ patient.recordday }}</td>
+            <td>
+                <button (click)="deletePatient(patient.id)">Borrar</button>
+                <button (click)="selectPatient(patient)">Modificar</button>
+            </td>
+        </tr>
+    </table>
+    <br>
+    <form #f="ngForm">
+        <label>Nombre</label>
+        <input type="text" name="name" [(ngModel)] = "selectedPatient.name">
+        <br>
+        <label>Apellido</label>
+        <input type="text" name="lastname" [(ngModel)] = "selectedPatient.lastname">
+        <br>
+        <label>Email</label>
+        <input type="email" name="email" [(ngModel)] = "selectedPatient.email">
+        <br>
+        <label>Género</label>
+        <div *ngFor="let genere of generes">
+            <input
+                type="radio"
+                name="genere"
+                value="{{genere}}"
+                (change)="radioChangeHandler($event)"
+            >
+            <p>{{genere}}</p>
+        </div>
+        <br>
+        <label>Ciudad de residencia</label>
+        <select name="hometown" [(ngModel)] = "selectedPatient.hometown">
+            <option value="Cordoba">Córdoba</option>
+            <option value="Fortin">Fortin</option>
+            <option value="Mendoza">Mendoza</option>
+            <option value="Nogales">Nogales</option>
+            <option value="Orizaba">Orizaba</option>
+            <option value="Peñuela">Peñuela</option>
+            <option value="Rio Blanco">Río Blanco</option>
+        </select>
+        <br>
+        <label>CURP</label>
+        <input type="text" name="curp" [(ngModel)] = "selectedPatient.curp">
+        <br>
+        <label>Fecha de nacimiento</label>
+        <input type="text" name="birthday" [(ngModel)] = "selectedPatient.birthday">
+        <br>
+        <label>Fecha estimada de vacunación</label>
+        <input type="text" name="recordday" [(ngModel)] = "selectedPatient.recordday">
+        <br>
+        <input type="button" (click)="createOrUpdatePatient(f)" value="Crear o Modificar Paciente">
+    </form>
+</div>
